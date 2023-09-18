@@ -51,6 +51,7 @@ coverage.xml
 .pytest_cache/
 cover/
 test/*.py
+test/*.xml
 
 # Translations
 *.mo
@@ -82,6 +83,9 @@ target/
 # IPython
 profile_default/
 ipython_config.py
+
+# .Vscode
+.vscode/
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
