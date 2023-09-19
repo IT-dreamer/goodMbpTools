@@ -5,6 +5,10 @@ def parseBlxml(codeBlxml, modelBlxml, output) -> bool:
     codeTree = etree.parse(codeBlxml)
     modelTree = etree.parse(modelBlxml)
     modelRoot = modelTree.getroot()
+
+    if not "{http://www.w3.org/2001/XMLSchema-instance}schemaLocation" in modelRoot.attrib:
+        return parseBlxml(modelBlxml, codeBlxml, output)
+    
     modelName = modelRoot.attrib["name"]
 
     codeFiles = []
@@ -47,7 +51,7 @@ def parseBlxml(codeBlxml, modelBlxml, output) -> bool:
 
     return True
 
-def main(inputs, output):
+def main(inputs, output="out.xml"):
     codeBlxml = inputs[0]
     modelBlxml = inputs[1]
     parseBlxml(codeBlxml, modelBlxml, output)
@@ -55,7 +59,7 @@ def main(inputs, output):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Concatanate code and model BLXML')
-    parser.add_argument('-o', '--output', help='output BLXML File')
+    parser.add_argument('-o', '--output', default=" out.xml ", help='output BLXML File')
     parser.add_argument('blxmls', help='input BLXMLs', nargs='+')
     args = parser.parse_args()
     main(args.blxmls, args.output)
