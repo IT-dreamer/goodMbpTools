@@ -4,8 +4,8 @@ from lxml import etree
 def parseBlxml(codeBlxml, modelBlxml, output) -> bool:
     codeTree = etree.parse(codeBlxml)
     modelTree = etree.parse(modelBlxml)
-
-    newRoot = etree.Element("root")
+    modelRoot = modelTree.getroot()
+    modelName = modelRoot.attrib["name"]
 
     codeFiles = []
     codeBlocks = []
@@ -25,6 +25,14 @@ def parseBlxml(codeBlxml, modelBlxml, output) -> bool:
     for element in modelTree.xpath('//block[not(ancestor::block)]'):
         modelBlocks.append(element)
 
+    nameSpaceMap = {
+        'sm': 'http://example.com/SimulinkModel',
+        'xsi': 'http://www.w3.org/2001/XMLSchema-instance'        
+    }
+    newRoot = etree.Element('{%s}blocks' % nameSpaceMap['sm'], nsmap=nameSpaceMap)
+    newRoot.set('name', modelName)
+    newRoot.set('{%s}schemaLocation' % nameSpaceMap['xsi'], 'http://example.com/SimulinkModel SimulinkModel.xsd')
+
     for item in modelFiles:
         newRoot.append(item)
     for item in codeFiles:
@@ -35,7 +43,7 @@ def parseBlxml(codeBlxml, modelBlxml, output) -> bool:
         newRoot.append(item)
     
     newTree = etree.ElementTree(newRoot)
-    newTree.write(output, encoding = "utf-8", xml_declaration=True)
+    newTree.write(output, encoding = "utf-8", pretty_print=True, xml_declaration=True)
 
     return True
 
@@ -50,4 +58,4 @@ if __name__ == "__main__":
     parser.add_argument('-o', '--output', help='output BLXML File')
     parser.add_argument('blxmls', help='input BLXMLs', nargs='+')
     args = parser.parse_args()
-    main(args.blxml, args.output)
+    main(args.blxmls, args.output)
