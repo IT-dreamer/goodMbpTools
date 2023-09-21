@@ -2,7 +2,7 @@
 Author: AFei tjtgcyf@gmail.com
 Date: 2023-09-21 15:08:26
 LastEditors: AFei tjtgcyf@gmail.com
-LastEditTime: 2023-09-21 16:10:22
+LastEditTime: 2023-09-21 16:31:17
 FilePath: /goodMbpTools/common/adjacencyList.py
 Description: 
 
@@ -46,8 +46,25 @@ class Vertex(Block):
     def getNumber(self):
         return self.number
 
+class AdjList:
+    def __init__(self, name = "adjacency list") -> None:
+        self.name = name
+        self.count = 0
+        self.list = {}
+    
+    def addVertex(self, vertex: Vertex):
+        innerList = []
+        for item in vertex.inVertices:
+            innerList.append(item.blockName)
+        self.list[vertex.name] = innerList
 
-
+    def print(self):
+        #keys = list(self.list.keys())
+        for key, value in self.list.items():
+            print(" [%s]" %key, end = '')
+            for v in value:
+                print("->%s "%v, end = '')
+            print("->^")
 
     
         
