@@ -5,7 +5,7 @@ LastEditors: AFei tjtgcyf@gmail.com
 LastEditTime: 2023-09-23 15:02:02
 FilePath: /goodMbpTools/mergeBlxml/mergeBlxml.py
 Description: This tool can merge code's blxml and model's blxml.
-Useage: Python3 mergeBlxml.py [-h] [-o OUTPUT] blxmls [blxmls ...]
+Usage: Python3 mergeBlxml.py [-h] [-o OUTPUT] blxmls [blxmls ...]
 Copyright (c) 2023 by AFei, All Rights Reserved. 
 '''
 import argparse
