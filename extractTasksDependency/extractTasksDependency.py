@@ -2,11 +2,11 @@
 Author: AFei tjtgcyf@gmail.com
 Date: 2023-09-23 14:42:56
 LastEditors: AFei tjtgcyf@gmail.com
-LastEditTime: 2023-09-23 15:08:39
+LastEditTime: 2023-09-23 15:11:17
 FilePath: /goodMbpTools/extractTasksDependency/extractTasksDependency.py
 Description: This tool will extract task's denpendency from main function.
             The results will be output to a json file.
-Usage: extractTasksDependency.py [-h] [-o OUTPUT] blxml
+Usage: Python3 extractTasksDependency.py [-h] [-o OUTPUT] blxml
 Copyright (c) 2023 by AFei, All Rights Reserved. 
 '''
 import argparse
