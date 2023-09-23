@@ -1,3 +1,13 @@
+'''
+Author: AFei tjtgcyf@gmail.com
+Date: 2023-09-20 14:23:53
+LastEditors: AFei tjtgcyf@gmail.com
+LastEditTime: 2023-09-23 15:02:02
+FilePath: /goodMbpTools/mergeBlxml/mergeBlxml.py
+Description: This tool can merge code's blxml and model's blxml.
+Useage: Python3 mergeBlxml.py [-h] [-o OUTPUT] blxmls [blxmls ...]
+Copyright (c) 2023 by AFei, All Rights Reserved. 
+'''
 import argparse
 from lxml import etree
 
@@ -58,7 +68,7 @@ def main(inputs, output="out.xml"):
     return 0
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Concatanate code and model BLXML')
+    parser = argparse.ArgumentParser(description='merge code and model BLXML')
     parser.add_argument('-o', '--output', default=" out.xml ", help='output BLXML File')
     parser.add_argument('blxmls', help='input BLXMLs', nargs='+')
     args = parser.parse_args()
