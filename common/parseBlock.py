@@ -74,7 +74,7 @@ class Root(ElementBase):
         self._source_streams = {}
         self.children = []
         for b in blxml.get_block():
-            self.children.append(Block.factory(self, b, ''))
+            self.children.append(codeBlock.factory(self, b, ''))
         for b in self.children:
             b.correct()
 
@@ -416,7 +416,7 @@ class Function(LinkBase):
 
     """
 
-class Block(ElementBase):
+class codeBlock(ElementBase):
     """BLXMLの<block>のクラス
 
     """
@@ -531,10 +531,10 @@ class Block(ElementBase):
         if blockType in subclass:
             subcls = subclass[blockType]
             return subcls(parent, blxml, indent)
-        return Block(parent, blxml, indent)
+        return codeBlock(parent, blxml, indent)
 
 
-class SubSystem(Block):
+class SubSystem(codeBlock):
     """SubSystem のクラス
 
     """
@@ -578,7 +578,7 @@ class SubSystem(Block):
         bslist = blxml.get_blocks()
         if bslist:
             for b in bslist[0].get_block():
-                self.children.append(Block.factory(self, b, indent + '  '))
+                self.children.append(codeBlock.factory(self, b, indent + '  '))
 
 
     def correct(self):
@@ -589,7 +589,7 @@ class SubSystem(Block):
             b.correct()
 
 
-class OrdinalBlock(Block):
+class OrdinalBlock(codeBlock):
     """一般のブロック
 
     """
@@ -606,7 +606,7 @@ class CombinedBlock(OrdinalBlock):
     """
 
 
-class CallBlock(Block):
+class CallBlock(codeBlock):
     """CallBlock のクラス
 
     """
