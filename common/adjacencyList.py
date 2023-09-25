@@ -2,31 +2,37 @@
 Author: AFei tjtgcyf@gmail.com
 Date: 2023-09-21 15:08:26
 LastEditors: AFei tjtgcyf@gmail.com
-LastEditTime: 2023-09-21 16:31:17
+LastEditTime: 2023-09-25 15:46:36
 FilePath: /goodMbpTools/common/adjacencyList.py
 Description: 
 
 Copyright (c) 2023 by AFei, All Rights Reserved. 
 '''
-from parseBlock import Block
+from parseBlock import codeBlock
 
-class Vertex(Block):
-    def __init__(self, block: Block = None):
+class Vertex(codeBlock):
+    def __init__(self, block: codeBlock = None):
         if block is None:
             self.name = ""
             self.inDegree = 0
             self.outDegree = 0
             self.inVertices = []
             self.outVertices = []
-            self.number
+            self.number = 0
         
         else:
             self.name = block.blockName
-            self.inDegree = block.input.__sizeof__()
-            self.outDegree = block.output.__sizeof__()
-            self.inVertices = block.input
-            self.outVertices = block.output
-            self.number
+            self.inDegree = len(block.input)
+            self.outDegree = len(block.output)
+            self.inVertices = []
+            self.outVertices = []
+            self.number = 0
+            for i in block.input:
+                for c in i.connect:
+                    self.inVertices.append(c.block)
+            for o in block.output:
+                for c in o.connect:
+                    self.outVertices.append(c.block)
 
     def getName(self):
         return self.name
@@ -54,8 +60,8 @@ class AdjList:
     
     def addVertex(self, vertex: Vertex):
         innerList = []
-        for item in vertex.inVertices:
-            innerList.append(item.blockName)
+        for item in vertex.outVertices:
+            innerList.append(item)
         self.list[vertex.name] = innerList
 
     def print(self):
