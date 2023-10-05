@@ -2,7 +2,7 @@
 Author: AFei tjtgcyf@gmail.com
 Date: 2023-09-21 15:08:26
 LastEditors: AFei tjtgcyf@gmail.com
-LastEditTime: 2023-09-25 15:46:36
+LastEditTime: 2023-09-29 11:02:18
 FilePath: /goodMbpTools/common/adjacencyList.py
 Description: 
 
@@ -57,12 +57,14 @@ class AdjList:
         self.name = name
         self.count = 0
         self.list = {}
+        self.vertList = {}
     
     def addVertex(self, vertex: Vertex):
         innerList = []
         for item in vertex.outVertices:
             innerList.append(item)
         self.list[vertex.name] = innerList
+        self.vertList[vertex.name] = vertex
 
     def print(self):
         #keys = list(self.list.keys())
@@ -72,5 +74,28 @@ class AdjList:
                 print("->%s "%v, end = '')
             print("->^")
 
-    
+'''
+description: Use topological sorting to parse acyclic DAG and obtain a legal node calling sequence
+param {AdjList} adjList
+return {*}
+'''
+def topoloSort(adjList: AdjList):
+    result = []
+    temp = []
+
+    while(len(adjList.vertList)):
+        for key, value in adjList.vertList.items():
+            if value.inDegree <= 0:
+                temp.append(value)
+        
+        for v in temp:
+            for value in v.outVertices:
+                adjList.vertList[value].inDegree -= 1
+            del adjList.vertList[v.name]
+            result.append(v.name)
+
+        temp.clear()
+
+    for item in result:
+        print(item)        
         
