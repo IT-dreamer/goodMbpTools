@@ -622,3 +622,19 @@ class Outport(OrdinalBlock):
     """Outport のクラス
 
     """
+
+class SimulinkBlock(ElementBase):
+    def __init__(self, block):
+        self.blockName = block.get_name()
+        self.blockType = block.get_blocktype()
+        self.input = []
+        self.output = []
+        self.code = []
+
+        for i in block.get_input():
+            self.input.append(i)
+        for o in block.get_output():
+            self.output.append(o)
+        for c in block.get_code():
+            self.code.append(c)
+    
