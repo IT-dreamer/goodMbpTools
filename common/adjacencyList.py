@@ -2,7 +2,7 @@
 Author: AFei tjtgcyf@gmail.com
 Date: 2023-09-21 15:08:26
 LastEditors: AFei tjtgcyf@gmail.com
-LastEditTime: 2023-09-29 11:02:18
+LastEditTime: 2023-10-05 13:25:05
 FilePath: /goodMbpTools/common/adjacencyList.py
 Description: 
 
@@ -77,7 +77,7 @@ class AdjList:
 '''
 description: Use topological sorting to parse acyclic DAG and obtain a legal node calling sequence
 param {AdjList} adjList
-return {*}
+return {list} result list
 '''
 def topoloSort(adjList: AdjList):
     result = []
@@ -96,6 +96,5 @@ def topoloSort(adjList: AdjList):
 
         temp.clear()
 
-    for item in result:
-        print(item)        
+    return result       
         
